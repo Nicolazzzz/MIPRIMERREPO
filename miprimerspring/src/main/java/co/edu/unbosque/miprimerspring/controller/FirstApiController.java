@@ -134,46 +134,17 @@ public class FirstApiController {
     
     @GetMapping("/verificarEmail")
     public String verificarEmailValido(@RequestParam String email) {
-        boolean esValido = true;
-        int contador = 0;
-        
-        if (email.isEmpty()) {
-            esValido = false;
+        if (email == null || email.isEmpty()) {
+            return "El correo electrónico '" + email + "' es: inválido";
         }
-        
-        if (!email.contains("@")) {
-            esValido = false;
-        }
-        
-        String[] partes = email.split("@");
-        if (partes.length != 2) {
-            esValido = false;
-        } else {
-            String nombreUsuario = partes[0];
-            String dominio = partes[1];
-            
-            if (nombreUsuario.isEmpty() || dominio.isEmpty()) {
-                esValido = false;
-            }
-            
-            if (!dominio.contains(".")) {
-                esValido = false;
-            }
-            
-            String[] parteDominio = dominio.split("\\.");
-            if (parteDominio.length < 2 || parteDominio[parteDominio.length-1].isEmpty()) {
-                esValido = false;
-            }
-            
-            for (char c : email.toCharArray()) {
-                if (!Character.isLetterOrDigit(c) && c != '@' && c != '.' && c != '_' && c != '-') {
-                    esValido = false;
-                }
-            }
-        }
-        
+
+        // Validar formato general usando una expresión regular básica
+        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        boolean esValido = email.matches(regex);
+
         return "El correo electrónico '" + email + "' es: " + (esValido ? "válido" : "inválido");
     }
+
     
     @GetMapping("/verificarPais")
     public String verificarPaisExistente(@RequestParam String pais) {

@@ -1,6 +1,7 @@
 package co.edu.unbosque.miprimerspring.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -36,7 +37,7 @@ public class EstudianteService {// Crear funciones de servicio APIS
 
 	}
 
-	public ArrayList<EstudianteDTO> findAll() { // todas las listas son iguales, cambian las ENTIDADES y los DTOS
+	public List<EstudianteDTO> findAll() { // todas las listas son iguales, cambian las ENTIDADES y los DTOS
 		ArrayList<Estudiante> entityList = (ArrayList<Estudiante>) estudianteRepo.findAll();
 		ArrayList<EstudianteDTO> dtoList = new ArrayList<>();
 

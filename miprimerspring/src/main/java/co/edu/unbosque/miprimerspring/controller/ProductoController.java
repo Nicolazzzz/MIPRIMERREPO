@@ -1,6 +1,7 @@
 package co.edu.unbosque.miprimerspring.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,13 +50,13 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/mostrarTodo")
-	public ResponseEntity<ArrayList<ProductoDTO>> mostrarTodo(){
-		ArrayList<ProductoDTO> producto = productoServ.findAll();
+	public ResponseEntity<List<ProductoDTO>> mostrarTodo(){
+		List<ProductoDTO> producto = productoServ.findAll();
 		if(producto.isEmpty()) {
-			return new ResponseEntity<ArrayList<ProductoDTO>>(producto, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.NO_CONTENT);
 			
 		}else {
-			return new ResponseEntity<ArrayList<ProductoDTO>>(producto, HttpStatus.ACCEPTED);
+			return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.ACCEPTED);
 		}
 	}
 	

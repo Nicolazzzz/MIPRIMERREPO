@@ -1,6 +1,7 @@
 package co.edu.unbosque.miprimerspring.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ProductoService {
 		
 	}
 	
-	public ArrayList<ProductoDTO> findAll() { //todas las listas son iguales, cambian las ENTIDADES y los DTOS
+	public List<ProductoDTO> findAll() { //todas las listas son iguales, cambian las ENTIDADES y los DTOS
 		ArrayList<Producto> entityList = (ArrayList<Producto>) productoRepo.findAll();
 		ArrayList<ProductoDTO> dtoList = new ArrayList<>();
 		
