@@ -1,6 +1,5 @@
 package co.edu.unbosque.miprimerspring.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,51 +12,65 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.edu.unbosque.miprimerspring.dto.EstudianteDTO;
 import co.edu.unbosque.miprimerspring.dto.ProductoDTO;
 import co.edu.unbosque.miprimerspring.service.ProductoService;
 
+/**
+ * Controlador para manejar operaciones relacionadas con los productos en la aplicación.
+ * Permite crear nuevos productos y mostrar todos los productos almacenados.
+ * 
+ * @author Nicolas Zambrano
+ */
 @RestController
 @RequestMapping("/producto")
 @CrossOrigin(origins = { "*" })
-//@Transactional
 public class ProductoController {
 
-	@Autowired
-	private ProductoService productoServ;
-	
-	public ProductoController() {
-		// TODO Auto-generated constructor stub
-	}
-	
+    @Autowired
+    private ProductoService productoServ;
 
-	@PostMapping("/crear")
-	public ResponseEntity<String> crear(@RequestParam String nombre, @RequestParam String marca,
-			@RequestParam int costo, @RequestParam int cantidad) {
+    /**
+     * Constructor por defecto del controlador.
+     */
+    public ProductoController() {
+        // Constructor vacío
+    }
 
-		ProductoDTO nuevoProducto = new ProductoDTO(nombre, marca, costo, cantidad);
+    /**
+     * Ruta para crear un nuevo producto en el sistema.
+     * 
+     * @param nombre El nombre del producto.
+     * @param marca La marca del producto.
+     * @param costo El costo del producto.
+     * @param cantidad La cantidad disponible del producto.
+     * @return ResponseEntity con mensaje de éxito o error.
+     */
+    @PostMapping("/crear")
+    public ResponseEntity<String> crear(@RequestParam String nombre, @RequestParam String marca,
+            @RequestParam int costo, @RequestParam int cantidad) {
 
-		int estado = productoServ.create(nuevoProducto);
-		if (estado == 0) {
-			
-			return new ResponseEntity<>("Producto Creado Con Exito!!", HttpStatus.CREATED);
+        ProductoDTO nuevoProducto = new ProductoDTO(nombre, marca, costo, cantidad);
 
-		} else {
-		
-			return new ResponseEntity<>("Error Al Crear El Producto", HttpStatus.NOT_ACCEPTABLE);
-		
-		}
-	}
-	
-	@GetMapping("/mostrarTodo")
-	public ResponseEntity<List<ProductoDTO>> mostrarTodo(){
-		List<ProductoDTO> producto = productoServ.findAll();
-		if(producto.isEmpty()) {
-			return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.NO_CONTENT);
-			
-		}else {
-			return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.ACCEPTED);
-		}
-	}
-	
+        int estado = productoServ.create(nuevoProducto);
+        if (estado == 0) {
+            return new ResponseEntity<>("Producto Creado Con Exito!!", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("Error Al Crear El Producto", HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    /**
+     * Ruta para obtener todos los productos almacenados en el sistema.
+     * 
+     * @return ResponseEntity con lista de productos o mensaje de no contenido si no hay productos.
+     */
+    @GetMapping("/mostrarTodo")
+    public ResponseEntity<List<ProductoDTO>> mostrarTodo(){
+        List<ProductoDTO> producto = productoServ.findAll();
+        if(producto.isEmpty()) {
+            return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<List<ProductoDTO>>(producto, HttpStatus.ACCEPTED);
+        }
+    }
 }

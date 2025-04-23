@@ -1,69 +1,167 @@
 package co.edu.unbosque.miprimerspring.dto;
 
+/**
+ * DTO (Data Transfer Object) que representa la información de un producto.
+ * Contiene los campos necesarios para almacenar los datos de un producto en el sistema.
+ * 
+ * <p>La clase incluye atributos como el ID del producto, su nombre, marca, costo y cantidad disponible.</p>
+ * <p>También proporciona los métodos getters y setters para acceder y modificar estos valores, 
+ * así como un método {@code toString()} para representar la información del producto como una cadena.</p>
+ * 
+ * @author Nicolas Zambrano
+ */
 public class ProductoDTO {
 
-	private int id;
-	private String nombre;
-	private String marca;
-	private int costo;
-	private int cantidad;
+    /**
+     * Identificador único del producto.
+     */
+    private int id;
 
-	public ProductoDTO(String nombre, String marca, int costo, int cantidad) {
-		super();
-		this.nombre = nombre;
-		this.marca = marca;
-		this.costo = costo;
-		this.cantidad = cantidad;
-	}
+    /**
+     * Nombre del producto.
+     */
+    private String nombre;
 
-	public ProductoDTO() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Marca del producto.
+     */
+    private String marca;
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * Costo del producto.
+     */
+    private int costo;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Cantidad disponible del producto.
+     */
+    private int cantidad;
 
-	public String getNombre() {
-		return nombre;
-	}
+    /**
+     * Constructor de la clase ProductoDTO con parámetros.
+     * 
+     * <p>Este constructor permite inicializar todos los atributos del producto al crear una nueva instancia.</p>
+     * 
+     * @param nombre El nombre del producto.
+     * @param marca La marca del producto.
+     * @param costo El costo del producto.
+     * @param cantidad La cantidad disponible del producto.
+     */
+    public ProductoDTO(String nombre, String marca, int costo, int cantidad) {
+        super();
+        this.nombre = nombre;
+        this.marca = marca;
+        this.costo = costo;
+        this.cantidad = cantidad;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    /**
+     * Constructor por defecto de la clase ProductoDTO.
+     * <p>Este constructor es utilizado para crear una instancia vacía de ProductoDTO, sin parámetros.</p>
+     */
+    public ProductoDTO() {
+        // Constructor vacío generado automáticamente
+    }
 
-	public String getMarca() {
-		return marca;
-	}
+    /**
+     * Obtiene el identificador único del producto.
+     * 
+     * @return El ID del producto.
+     */
+    public int getId() {
+        return id;
+    }
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
+    /**
+     * Establece el identificador único del producto.
+     * 
+     * @param id El ID del producto.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public int getCosto() {
-		return costo;
-	}
+    /**
+     * Obtiene el nombre del producto.
+     * 
+     * @return El nombre del producto.
+     */
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
+    /**
+     * Establece el nombre del producto.
+     * 
+     * @param nombre El nombre del producto.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    /**
+     * Obtiene la marca del producto.
+     * 
+     * @return La marca del producto.
+     */
+    public String getMarca() {
+        return marca;
+    }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    /**
+     * Establece la marca del producto.
+     * 
+     * @param marca La marca del producto.
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
-	@Override
-	public String toString() {
-		return "ProductoDTO [id=" + id + ", nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", cantidad="
-				+ cantidad + "]";
-	}
+    /**
+     * Obtiene el costo del producto.
+     * 
+     * @return El costo del producto.
+     */
+    public int getCosto() {
+        return costo;
+    }
+
+    /**
+     * Establece el costo del producto.
+     * 
+     * @param costo El costo del producto.
+     */
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+
+    /**
+     * Obtiene la cantidad disponible del producto.
+     * 
+     * @return La cantidad del producto disponible.
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * Establece la cantidad disponible del producto.
+     * 
+     * @param cantidad La cantidad del producto disponible.
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * Devuelve una representación en cadena de la información del producto.
+     * 
+     * @return Una cadena que representa el producto en formato de texto.
+     */
+    @Override
+    public String toString() {
+        return "ProductoDTO [id=" + id + ", nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", cantidad="
+                + cantidad + "]";
+    }
 
 }

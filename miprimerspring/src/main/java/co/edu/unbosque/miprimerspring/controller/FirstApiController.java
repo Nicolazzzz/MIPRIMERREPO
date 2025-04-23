@@ -1,6 +1,5 @@
 package co.edu.unbosque.miprimerspring.controller;
 
-
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,13 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Controlador que maneja varias rutas para pruebas simples de cálculo y validación de cadenas.
+ * Las rutas incluyen operaciones de suma, cálculos de volumenes, validación de cadenas y más.
+ * 
+ * @author Nicolas Zambrano
+ */
 @RestController
 @RequestMapping("/test")
 @CrossOrigin(origins = { "*" })
 @Transactional
 public class FirstApiController {
-	
-	
+    
+    /**
+     * Lista de groserías colombianas que se utilizarán para la validación de contenido.
+     */
     private final String[] groseriasColombianas = {
             "triplehijueputa", "remalparido", "huevon", "mamaguevo", "pajuo",
             "hijueputa", "malparido", "gonorrea", "marica", "careverga", 
@@ -38,59 +45,109 @@ public class FirstApiController {
             "cipote", "comegente", "comején", "comemierda", 
             "cotorra", "cuaima", "cucaracho", "culo e’ paja", 
             "desbaratado", "deschavetado", "desgraciado", "diablo", "enguayabado"
-        };
+    };
 
-	@GetMapping("/saludar")
-	public String getSaludar(@RequestParam String nombre) {
-		return "Hola " + nombre;
-	}
+    /**
+     * Ruta para saludar a una persona por su nombre.
+     * @param nombre Nombre de la persona a saludar.
+     * @return Saludo personalizado.
+     */
+    @GetMapping("/saludar")
+    public String getSaludar(@RequestParam String nombre) {
+        return "Hola " + nombre;
+    }
 
-	@GetMapping("/suma")
-	public String getSuma(@RequestParam int num1, @RequestParam int num2) {
-		return "Resultado de la suma es " + (num1 + num2);
-	}
+    /**
+     * Ruta para calcular la suma de dos números.
+     * @param num1 Primer número.
+     * @param num2 Segundo número.
+     * @return El resultado de la suma de los dos números.
+     */
+    @GetMapping("/suma")
+    public String getSuma(@RequestParam int num1, @RequestParam int num2) {
+        return "Resultado de la suma es " + (num1 + num2);
+    }
 
-	@PostMapping("/saludar")
-	public String postSaludarPost(@RequestParam String nombre) {
+    /**
+     * Ruta para saludar a una persona mediante una petición POST.
+     * @param nombre Nombre de la persona a saludar.
+     * @return Mensaje personalizado.
+     */
+    @PostMapping("/saludar")
+    public String postSaludarPost(@RequestParam String nombre) {
+        return "Vamos a rajar a " + nombre;
+    }
 
-		return "Vamos a rajar a " + nombre;
-	}
+    /**
+     * Ruta para calcular el volumen de un cilindro.
+     * @param radio Radio de la base del cilindro.
+     * @param altura Altura del cilindro.
+     * @return El volumen del cilindro calculado.
+     */
+    @GetMapping("/vCilindro")
+    public String getVolumenCilindro(@RequestParam double radio, @RequestParam double altura) {
+        return "el volumen del cilindro es: " + (Math.PI) * (radio * radio) * altura + " cm^3";
+    }
 
-	@GetMapping("/vCilindro")
-	public String getVolumenCilindro(@RequestParam double radio, @RequestParam double altura) {
-		return "el volumen del cilndro es: " + (Math.PI) * (radio * radio) * altura + " cm^3";
-	}
+    /**
+     * Ruta para calcular el volumen de una esfera.
+     * @param radio Radio de la esfera.
+     * @return El volumen de la esfera calculado.
+     */
+    @GetMapping("/vEsfera")
+    public String getVolumenEsfera(@RequestParam double radio) {
+        return "el volumen de la esfera es: " + (4 * Math.PI * (radio * radio * radio)) / 3 + " cm^3";
+    }
 
-	@GetMapping("/vEsfera")
-	public String getVolumenEsfera(@RequestParam double radio) {
-		return "el volumen de la esfera es: " + (4 * Math.PI * (radio * radio * radio)) / 3 + " cm^3";
-	}
+    /**
+     * Ruta para calcular el volumen de un dodecaedro.
+     * @param arista Longitud de la arista del dodecaedro.
+     * @return El volumen del dodecaedro calculado.
+     */
+    @GetMapping("/vDodecaedro")
+    public String getVolumenDodecaedro(@RequestParam double arista) {
+        return "el volumen del dodecaedro es: " + ((15 + (7 * Math.sqrt(5))) * Math.pow(arista, 3)) / 4;
+    }
 
-	@GetMapping("/vDodecaedro")
-	public String getVolumenDodecaedro(@RequestParam double arista) {
-		return "el volumen del dodecaedro es: " + ((15 + (7 * Math.sqrt(5))) * Math.pow(arista, 3)) / 4;
-	}
+    /**
+     * Ruta para contar la cantidad de vocales en una cadena.
+     * @param string Cadena en la que se contarán las vocales.
+     * @return Cantidad de vocales en la cadena.
+     */
+    @GetMapping("/cantidadVocales")
+    public String getCantidadVocales(@RequestParam String string) {
+        int totalVocales = string.replaceAll("[^AEIOUaeiouÁÉÍÓÚáéíóú]", "").length();
+        return "la cantidad de vocales en '" + string + "' es de: " + totalVocales;
+    }
 
-	@GetMapping("/cantidadVocales")
-	public String getCantidadVocales(@RequestParam String string) {
-		int totalVocales = string.replaceAll("[^AEIOUaeiouÁÉÍÓÚáéíóú]", "").length();
-		return "la cantidad de vocales en '" + string + "' es de: " + totalVocales;
-	}
-	
-	@GetMapping("/cantidadDeX")
-	public String getCantidadDeX(@RequestParam String string) {
-		int totalX = string.replaceAll("[^xX]", "").length();
-		return "la cantidad de x y X en '"+string+"' es de: "+ totalX;
-	}
-	
-	@GetMapping("/cantidadEspacios")
-	public String getCantidadEspacios(@RequestParam String string) {
-		String nueva = string.replaceAll("[ ]", "1");
-		int total = nueva.replaceAll("[^1]", "").length();
-		return "la cantidad de epspacios en '"+string+"' es: "+total;
-	}
-	
+    /**
+     * Ruta para contar la cantidad de veces que aparece la letra 'x' o 'X' en una cadena.
+     * @param string Cadena en la que se contará la cantidad de 'x' o 'X'.
+     * @return Cantidad de 'x' o 'X' en la cadena.
+     */
+    @GetMapping("/cantidadDeX")
+    public String getCantidadDeX(@RequestParam String string) {
+        int totalX = string.replaceAll("[^xX]", "").length();
+        return "la cantidad de x y X en '" + string + "' es de: " + totalX;
+    }
 
+    /**
+     * Ruta para contar la cantidad de espacios en blanco en una cadena.
+     * @param string Cadena en la que se contará la cantidad de espacios.
+     * @return Cantidad de espacios en la cadena.
+     */
+    @GetMapping("/cantidadEspacios")
+    public String getCantidadEspacios(@RequestParam String string) {
+        String nueva = string.replaceAll("[ ]", "1");
+        int total = nueva.replaceAll("[^1]", "").length();
+        return "la cantidad de espacios en '" + string + "' es: " + total;
+    }
+
+    /**
+     * Ruta para contar la cantidad de groserías colombianas en una cadena.
+     * @param string Cadena en la que se buscarán las groserías.
+     * @return Cantidad de groserías encontradas.
+     */
     @GetMapping("/cantidadGroserias")
     public String getCantidadGroserias(@RequestParam String string) {
         int contador = 0;
@@ -106,7 +163,12 @@ public class FirstApiController {
         
         return "La cantidad de groserías en '" + string + "' es de: " + contador;
     }
-	
+
+    /**
+     * Ruta para verificar si un nombre es válido según ciertos criterios.
+     * @param nombre Nombre que se quiere verificar.
+     * @return Si el nombre es válido o no.
+     */
     @GetMapping("/verificarNombre")
     public String verificarNombreValido(@RequestParam String nombre) {
         boolean esValido = true;
@@ -131,7 +193,12 @@ public class FirstApiController {
         
         return "El nombre '" + nombre + "' es: " + (esValido ? "válido" : "inválido");
     }
-    
+
+    /**
+     * Ruta para verificar si un correo electrónico es válido.
+     * @param email Correo electrónico que se quiere verificar.
+     * @return Si el correo electrónico es válido o no.
+     */
     @GetMapping("/verificarEmail")
     public String verificarEmailValido(@RequestParam String email) {
         if (email == null || email.isEmpty()) {
@@ -145,7 +212,11 @@ public class FirstApiController {
         return "El correo electrónico '" + email + "' es: " + (esValido ? "válido" : "inválido");
     }
 
-    
+    /**
+     * Ruta para verificar si un país existe en el mundo.
+     * @param pais Nombre del país que se quiere verificar.
+     * @return Si el país existe o no.
+     */
     @GetMapping("/verificarPais")
     public String verificarPaisExistente(@RequestParam String pais) {
         boolean existe = false;

@@ -6,73 +6,166 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entidad que representa un producto en el sistema.
+ * Esta clase está mapeada a una tabla en la base de datos llamada "producto".
+ * 
+ * <p>Contiene los atributos necesarios para almacenar el nombre, marca, costo y cantidad de un producto.</p>
+ * 
+ * @author Nicolas Zambrano
+ */
 @Entity // jakarta
 @Table(name = "producto") // jakarta
 public class Producto {
 
-	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;	
-	private String nombre;
-	private String marca;
-	private int costo;
-	private int cantidad;
-	
-	public Producto() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * Identificador único del producto.
+     * Este atributo es la clave primaria de la entidad y es autogenerado.
+     */
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer id;
 
-	public Producto(String nombre, String marca, int costo, int cantidad) {
-		super();
-		this.nombre = nombre;
-		this.marca = marca;
-		this.costo = costo;
-		this.cantidad = cantidad;
-	}
+    /**
+     * Nombre del producto.
+     */
+    private String nombre;
 
-	public int getId() {
-		return id;
-	}
+    /**
+     * Marca del producto.
+     */
+    private String marca;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Costo del producto.
+     */
+    private int costo;
 
-	public String getNombre() {
-		return nombre;
-	}
+    /**
+     * Cantidad disponible del producto.
+     */
+    private int cantidad;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    /**
+     * Constructor por defecto de la clase Producto.
+     * <p>Este constructor es utilizado por JPA para crear una nueva instancia de Producto cuando se carga desde la base de datos.</p>
+     */
+    public Producto() {
+        // Constructor vacío utilizado por JPA
+    }
 
-	public String getMarca() {
-		return marca;
-	}
+    /**
+     * Constructor parametrizado para crear una nueva instancia de Producto.
+     * 
+     * @param nombre Nombre del producto.
+     * @param marca Marca del producto.
+     * @param costo Costo del producto.
+     * @param cantidad Cantidad disponible del producto.
+     */
+    public Producto(String nombre, String marca, int costo, int cantidad) {
+        super();
+        this.nombre = nombre;
+        this.marca = marca;
+        this.costo = costo;
+        this.cantidad = cantidad;
+    }
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
+    /**
+     * Obtiene el identificador único del producto.
+     * 
+     * @return El ID del producto.
+     */
+    public int getId() {
+        return id;
+    }
 
-	public int getCosto() {
-		return costo;
-	}
+    /**
+     * Establece el identificador único del producto.
+     * 
+     * @param id El ID del producto.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
+    /**
+     * Obtiene el nombre del producto.
+     * 
+     * @return El nombre del producto.
+     */
+    public String getNombre() {
+        return nombre;
+    }
 
-	public int getCantidad() {
-		return cantidad;
-	}
+    /**
+     * Establece el nombre del producto.
+     * 
+     * @param nombre El nombre del producto.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
+    /**
+     * Obtiene la marca del producto.
+     * 
+     * @return La marca del producto.
+     */
+    public String getMarca() {
+        return marca;
+    }
 
-	@Override
-	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", cantidad="
-				+ cantidad + "]";
-	}
-	
-	
+    /**
+     * Establece la marca del producto.
+     * 
+     * @param marca La marca del producto.
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * Obtiene el costo del producto.
+     * 
+     * @return El costo del producto.
+     */
+    public int getCosto() {
+        return costo;
+    }
+
+    /**
+     * Establece el costo del producto.
+     * 
+     * @param costo El costo del producto.
+     */
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+
+    /**
+     * Obtiene la cantidad disponible del producto.
+     * 
+     * @return La cantidad disponible del producto.
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * Establece la cantidad disponible del producto.
+     * 
+     * @param cantidad La cantidad disponible del producto.
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * Representa el producto como una cadena de texto.
+     * 
+     * @return Una representación en formato de cadena del producto, incluyendo todos sus atributos.
+     */
+    @Override
+    public String toString() {
+        return "Producto [id=" + id + ", nombre=" + nombre + ", marca=" + marca + ", costo=" + costo + ", cantidad="
+                + cantidad + "]";
+    }
 }

@@ -6,76 +6,96 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import co.edu.unbosque.miprimerspring.dto.EstudianteDTO;
 import co.edu.unbosque.miprimerspring.model.Estudiante;
 import co.edu.unbosque.miprimerspring.repository.EstudianteRepository;
 
+/**
+ * Servicio para la entidad Estudiante.
+ * 
+ * <p>Este servicio proporciona las operaciones de negocio para trabajar con la entidad {@link Estudiante}. 
+ * Las operaciones incluyen la creación, obtención, eliminación de estudiantes y mapeo entre las entidades y sus DTOs.</p>
+ * 
+ * @author Nicolas Zambrano
+ */
 @Service
-public class EstudianteService {// Crear funciones de servicio APIS
+public class EstudianteService {
 
-	@Autowired
-	private EstudianteRepository estudianteRepo;
-	@Autowired
-	private ModelMapper modelMapper;
+    @Autowired
+    private EstudianteRepository estudianteRepo;  // Repositorio para la entidad Estudiante
+    
+    @Autowired
+    private ModelMapper modelMapper;  // Herramienta para mapear entidades a DTOs
 
-	public int create(EstudianteDTO data) {
+    /**
+     * Crea un nuevo estudiante en la base de datos.
+     * 
+     * @param data El DTO del estudiante a crear.
+     * @return Código de estado, 0 si la creación fue exitosa, 1 si ocurrió un error.
+     */
+    public int create(EstudianteDTO data) {
+        Estudiante entity = modelMapper.map(data, Estudiante.class);  // Mapea el DTO a la entidad Estudiante
 
-		Estudiante entity = modelMapper.map(data, Estudiante.class);
+        try {
+            estudianteRepo.save(entity);  // Guarda la entidad en la base de datos
+            return 0;
+        } catch (Exception e) {
+            return 1;  // Error al guardar
+        }
+    }
 
-		try {
-			estudianteRepo.save(entity);
-			return 0;
-		} catch (Exception e) {// SQL exception
-			return 1;
-		}
+    /**
+     * Obtiene todos los estudiantes de la base de datos.
+     * 
+     * @return Una lista de DTOs de estudiantes.
+     */
+    public List<EstudianteDTO> findAll() {
+        ArrayList<Estudiante> entityList = (ArrayList<Estudiante>) estudianteRepo.findAll();  // Obtiene todos los estudiantes
+        ArrayList<EstudianteDTO> dtoList = new ArrayList<>();
 
-	}
+        // Mapea cada entidad Estudiante a su DTO correspondiente
+        entityList.forEach((entity) -> {
+            EstudianteDTO dto = modelMapper.map(entity, EstudianteDTO.class);
+            dtoList.add(dto);
+        });
 
-	public List<EstudianteDTO> findAll() { // todas las listas son iguales, cambian las ENTIDADES y los DTOS
-		ArrayList<Estudiante> entityList = (ArrayList<Estudiante>) estudianteRepo.findAll();
-		ArrayList<EstudianteDTO> dtoList = new ArrayList<>();
+        return dtoList;
+    }
 
-		entityList.forEach((entity) -> {
-			EstudianteDTO dto = modelMapper.map(entity, EstudianteDTO.class);
-			dtoList.add(dto);
-		});
-		return dtoList;
-	}
+    /**
+     * Elimina un estudiante por su ID.
+     * 
+     * @param id El ID del estudiante a eliminar.
+     * @return Código de estado, 0 si la eliminación fue exitosa, 1 si no se encontró el estudiante.
+     */
+    public int deleteById(Integer id) {
+        Optional<Estudiante> found = estudianteRepo.findById(id);  // Busca el estudiante por ID
 
-	public int deleteById(Integer id) {
-		Optional<Estudiante> found = estudianteRepo.findById(id);
+        if (found.isPresent()) {
+            estudianteRepo.delete(found.get());  // Elimina el estudiante encontrado
+            return 0;
+        } else {
+            return 1;  // Estudiante no encontrado
+        }
+    }
 
-		if (found.isPresent()) {
-			estudianteRepo.delete(found.get());
-			return 0;
-		} else {
-			return 1;
-		}
+    // Métodos getter y setter para los campos de la clase
 
-	}
-	
-	
+    public EstudianteRepository getEstudianteRepo() {
+        return estudianteRepo;
+    }
 
-	public EstudianteRepository getEstudianteRepo() {
-		return estudianteRepo;
-	}
+    public void setEstudianteRepo(EstudianteRepository estudianteRepo) {
+        this.estudianteRepo = estudianteRepo;
+    }
 
-	public void setEstudianteRepo(EstudianteRepository estudianteRepo) {
-		this.estudianteRepo = estudianteRepo;
-	}
+    public ModelMapper getModelMapper() {
+        return modelMapper;
+    }
 
-	public ModelMapper getModelMapper() {
-		return modelMapper;
-	}
-
-	public void setModelMapper(ModelMapper modelMapper) {
-		this.modelMapper = modelMapper;
-	}
-
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 }
